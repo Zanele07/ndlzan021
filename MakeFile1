@@ -3,7 +3,7 @@ JAVAC=/usr/bin/javac
 SRCDIR=src
 BINDIR=bin
 
-$(BINDIR)/%.class:$(SRCDIR)/%.java
+$(BINDIR)/%.class: $(SRCDIR)/%.java
 	$(JAVAC) -d $(BINDIR)/ -cp $(BINDIR) $<
 
 CLASSES=Search.class TerrainArea.class MonteCarloMinimizationParallel.class
