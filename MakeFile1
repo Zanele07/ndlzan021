@@ -1,16 +1,21 @@
-JAVAC=/usr/bin/javac
-.SUFFIXES: .java .class
-SRCDIR=src
-BINDIR=bin
+JFLAGS = -g
+JC = javac
+SRCDIR = src
+BINDIR = bin
+DATADIR = data
 
-$(BINDIR)/%.class: $(SRCDIR)/%.java
-	$(JAVAC) -d $(BINDIR)/ -cp $(BINDIR) $<
+# Use find command to locate all .java files inside the MonteCarloMini folder
+CLASSES := $(shell find $(SRCDIR)/MonteCarloMini -name "*.java")
 
-CLASSES=Search.class TerrainArea.class MonteCarloMinimizationParallel.class
-CLASS_FILES=$(CLASSES:%.class=$(BINDIR)/%.class)
+# Compile the classes inside the MonteCarloMini folder
+default: classes
 
-default: $(CLASS_FILES)
+classes:
+	$(JC) $(JFLAGS) -cp $(BINDIR) $(CLASSES) -d $(BINDIR)
+
 clean:
-	rm $(BINDIR)/*.class
+	$(RM) $(BINDIR)/MonteCarloMini/*.class
+
 run:
-	java -cp $(BINDIR) MonteCarloMinimizationParallel
+	java -cp $(BINDIR) MonteCarloMini.MonteCarloMinimizationParallel $(ARGS)
+
